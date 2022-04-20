@@ -2,7 +2,6 @@
 
 Solidity Compiler and Java Wrapper Generator
 
-Note: The main solidity file must be in the root directory of the project, its libraries in internal directories within it.
 
 
 Installing Web3j On Linux:
@@ -15,7 +14,6 @@ Installing Web3j On Windows:
 
 ```
 Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/web3j/web3j-installer/master/installer.ps1'))
-
 ```
 
 Use:
@@ -37,3 +35,5 @@ item.setLoggingLevel(LoggingLevel.trace);
 item.compile();
 
 ```
+
+Note: The main solidity file must be in the root directory of the project, its libraries in internal directories within it.
