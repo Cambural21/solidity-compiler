@@ -7,7 +7,7 @@ Solidity Compiler and Java Wrapper Generator
 Installing Web3j On Linux:
 
 ```
-curl -sL get.web3j.io | bash
+curl -L get.web3j.io | sh && source ~/.web3j/source.sh
 ```
 
 Installing Web3j On Windows:
