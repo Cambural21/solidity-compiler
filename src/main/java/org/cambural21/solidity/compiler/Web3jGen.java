@@ -23,7 +23,7 @@ public class Web3jGen {
         boolean success = false;
 
         try{
-            final File web3j = Installer.getWeb3j();
+            final File web3j = Installer.getInstance().getWeb3j();
             if(!buildDir.exists()) buildDir.mkdirs();
             List<String> commandParts = new ArrayList<>();
             commandParts.add(web3j.getAbsolutePath());
