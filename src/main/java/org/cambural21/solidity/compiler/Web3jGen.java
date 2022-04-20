@@ -18,10 +18,9 @@ public class Web3jGen {
         this.buildDir = buildDir;
     }
 
-    public Build build() {
+    private Build buildWithDownload() {
         File binding = null;
         boolean success = false;
-
         try{
             final File web3j = Installer.getInstance().getWeb3j();
             if(!buildDir.exists()) buildDir.mkdirs();
@@ -75,14 +74,25 @@ public class Web3jGen {
                 return binding_;
             }
         };
+    }
 
+    public Build build() {
+        Build build = null;
+        try{
+            build = buildWithDownload();
 
+            /*if (VM.isMac() || VM.isWindows()) build = buildWithLibrary();
+            else build = buildWithDownload();*/
 
+        }catch (Exception e){
+            e.printStackTrace();
+            build = null;
+        }
+        return build;
     }
 
     public interface Build {
         boolean wasSuccess();
-
         File getBinding();
     }
 }

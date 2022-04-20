@@ -1,6 +1,7 @@
 package org.cambural21.solidity.compiler;
 
 import org.slf4j.LoggerFactory;
+
 import org.slf4j.impl.SimpleLogger;
 import org.slf4j.impl.SimpleLoggerFactory;
 
@@ -15,6 +16,7 @@ public class CompilerItem {
     private final File build;
 
     public CompilerItem(File source, File build, String packageName){
+
         if(source == null) throw new NullPointerException("source is NULL");
         else if(build == null) throw new NullPointerException("source is NULL");
         else if(packageName == null || packageName.isEmpty()) throw new NullPointerException("source is NULL");
@@ -29,7 +31,7 @@ public class CompilerItem {
         return packageName;
     }
 
-    public void setLoggingLevel(LoggingLevel lvl) {
+    public CompilerItem setLoggingLevel(LoggingLevel lvl) {
         if(lvl != null){
             try{
                 String logLevel = null;
@@ -50,6 +52,7 @@ public class CompilerItem {
                         logLevel = "error";
                     } break;
                 }
+
                 System.setProperty(org.slf4j.impl.SimpleLogger.SHOW_THREAD_NAME_KEY, "false");
                 System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, logLevel.toLowerCase());
                 Field field = SimpleLogger.class.getDeclaredField("INITIALIZED");
@@ -58,10 +61,12 @@ public class CompilerItem {
                 Method method = SimpleLoggerFactory.class.getDeclaredMethod("reset");
                 method.setAccessible(true);
                 method.invoke(LoggerFactory.getILoggerFactory());
+
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
+        return this;
     }
 
     public File getSource() {

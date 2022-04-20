@@ -37,31 +37,9 @@ public class Installer {
         this.os = os;
     }
 
-    public Installer setWeb3jVersion(String web3jVersion) {
-        if(web3jVersion != null && !web3jVersion.isEmpty()) this.web3jVersion = web3jVersion;
-        return this;
-    }
-
-    public String getWeb3jVersion() {
-        return web3jVersion;
-    }
-
     //******************************************************************************************************************
 
-    private File getWeb3jZip() {
-        return new File("web3j-"+getWeb3jVersion()+".zip").getAbsoluteFile();
-    }
 
-    private String getWeb3jUrl() {
-        String V = getWeb3jVersion();
-        return "https://github.com/web3j/web3j-cli/releases/download/v"+V+"/web3j-"+V+".zip";
-    }
-
-    public File getWeb3j() {
-        File file = new File("web3j-"+getWeb3jVersion()+"/bin/web3j").getAbsoluteFile();
-        if(file.exists()) file.setExecutable(true);
-        return file;
-    }
 
     //******************************************************************************************************************
 
@@ -128,7 +106,30 @@ public class Installer {
         return web3j.exists();
     }
 
+    public boolean install(){
+        boolean success = false;
+        try{
+            if(!installWeb3j()) throw new NullPointerException("web3j is null");
+            for (String binName:new String[]{getABIGEN(), getSOLC()}) {
+                File local = new File(binName);
+                InputStream is = getResourceAsStream(binName);
+                Files.copy(is, local.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                is.close();
+                local.setExecutable(true, false);
+            }
+            success = true;
+        }catch (Exception e){
+            success = false;
+            e.printStackTrace();
+        }
+        return success;
+    }
+
     //******************************************************************************************************************
+
+    private File getWeb3jZip() {
+        return new File("web3j-"+getWeb3jVersion()+".zip").getAbsoluteFile();
+    }
 
     //fixme
     private InputStream getResourceAsStream(String name) throws IOException {
@@ -139,6 +140,15 @@ public class Installer {
         //return Installer.class.getClassLoader().getResourceAsStream("resources/"+os.getFolder()+"/" + name);
         //return getClass().getClassLoader().getResourceAsStream("/"+os.getFolder()+"/" + name);
         //return getClass().getClassLoader().getResourceAsStream(os.getFolder()+"/" + name);
+    }
+
+    public Installer setWeb3jVersion(String web3jVersion) {
+        if(web3jVersion != null && !web3jVersion.isEmpty()) this.web3jVersion = web3jVersion;
+        return this;
+    }
+
+    public String getWeb3jVersion() {
+        return web3jVersion;
     }
 
     public static File getAbigen() throws IOException {
@@ -172,23 +182,15 @@ public class Installer {
         return VM.isWindows()?SOLC_+".exe":SOLC_;
     }
 
-    public boolean install(){
-        boolean success = false;
-        try{
-            if(!installWeb3j()) throw new NullPointerException("web3j is null");
-            for (String binName:new String[]{getABIGEN(), getSOLC()}) {
-                File local = new File(binName);
-                InputStream is = getResourceAsStream(binName);
-                Files.copy(is, local.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                is.close();
-                local.setExecutable(true, false);
-            }
-            success = true;
-        }catch (Exception e){
-            success = false;
-            e.printStackTrace();
-        }
-        return success;
+    private String getWeb3jUrl() {
+        String V = getWeb3jVersion();
+        return "https://github.com/web3j/web3j-cli/releases/download/v"+V+"/web3j-"+V+".zip";
+    }
+
+    public File getWeb3j() {
+        File file = new File("web3j-"+getWeb3jVersion()+"/bin/web3j").getAbsoluteFile();
+        if(file.exists()) file.setExecutable(true);
+        return file;
     }
 
     //******************************************************************************************************************
