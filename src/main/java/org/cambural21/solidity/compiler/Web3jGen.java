@@ -80,10 +80,6 @@ public class Web3jGen {
         Build build = null;
         try{
             build = buildWithDownload();
-
-            /*if (VM.isMac() || VM.isWindows()) build = buildWithLibrary();
-            else build = buildWithDownload();*/
-
         }catch (Exception e){
             e.printStackTrace();
             build = null;

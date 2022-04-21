@@ -1,9 +1,9 @@
-# Solidity Compiler: 
+# Solidity Compiler:
 
-Solidity Compiler and Java Wrapper Generator (Linux Only)
+Solidity Compiler and Java Wrapper Generator (Linux, macOS, Windows)
 
 Use:
-
+====
 ```
 
 import org.cambural21.solidity.compiler.CompilerItem;
@@ -22,4 +22,10 @@ item.compile();
 
 ```
 
+Releases:
+====
+
+[SolidityCompiler v0.1](https://github.com/Cambural21/solidity-compiler/)
+
 Note: The main solidity file must be in the root directory of the project, its libraries in internal directories within it.
+
