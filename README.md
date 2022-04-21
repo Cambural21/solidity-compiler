@@ -23,7 +23,7 @@ item.compile();
 Releases:
 ====
 
-[SolidityCompiler v0.1](https://github.com/Cambural21/solidity-compiler/)
+[SolidityCompiler v0.1](https://github.com/Cambural21/solidity-compiler/releases/download/RELEASE/SolidityCompiler.jar)
 
 Note: The main solidity file must be in the root directory of the project, its libraries in internal directories within it.
 
