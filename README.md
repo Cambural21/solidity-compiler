@@ -2,6 +2,12 @@
 
 Solidity Compiler and Java Wrapper Generator (Linux, macOS, Windows)
 
+Run Command Line:
+====
+```
+java -jar SolidityCompiler.jar
+```
+
 Use:
 ====
 ```
