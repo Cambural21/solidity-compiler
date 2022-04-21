@@ -20,17 +20,4 @@ public final class TestCompiler extends InteractiveOptions {
         }
     }
 
-    /*
-    File source = new File("/root/Downloads/Cambural21/Solidity/ERC721/ERC721.sol");
-    File destination = new File("/root/Downloads/Cambural21/Solidity/BUILDS/ERC721");
-    String packageName = "org.cambural21.solidity.manager.contracts";
-    * */
-
-    /*
-    readlink -f `which web3j`
-    /root/.web3j/web3j
-    /root/.web3j/web3j-cli-shadow-1.4.1/bin/web3j
-    rm -rf /root/.web3j/web3j-cli-shadow-1.4.1/bin/web3j
-    * */
-
 }
