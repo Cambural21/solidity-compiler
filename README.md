@@ -1,6 +1,6 @@
 # Solidity Compiler: 
 
-Solidity Compiler and Java Wrapper Generator
+Solidity Compiler and Java Wrapper Generator (Linux Only)
 
 Use:
 
