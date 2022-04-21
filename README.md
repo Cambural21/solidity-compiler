@@ -7,7 +7,6 @@ Use:
 ```
 
 import org.cambural21.solidity.compiler.CompilerItem;
-import org.cambural21.solidity.compiler.Installer;
 import org.cambural21.solidity.compiler.LoggingLevel;
 
 File source = new File("/projects//Solidity/ERC20/ERC20.sol");
