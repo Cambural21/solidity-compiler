@@ -12,6 +12,14 @@ public final class GethCompiler {
         GO, JAVA;
     }
 
+    public static File parsePackageName(File tree, String _package){
+        for (String path:_package.split("\\.")) {
+            tree = new File(tree, path);
+            tree.mkdirs();
+        }
+        return tree;
+    }
+
     private static CompilerInfo compile(Language language, final File _buildDir, final File _sourceFile, String _package, boolean optimize, boolean deleteCache){
         CompilerInfo compilerInfo = null;
         if(language != null && _sourceFile != null && _buildDir != null && _package != null){
@@ -71,10 +79,7 @@ public final class GethCompiler {
 
                     File tree = _buildDir;
                     {
-                        for (String path:_package.replace(".", "/").split("//")) {
-                            tree = new File(tree, path);
-                            tree.mkdirs();
-                        }
+                        tree = parsePackageName(tree, _package);
                         tree = new File(tree, abigenFile.getName().replace("abi", "java"));
                     }
                     Files.write(tree.toPath(), data);

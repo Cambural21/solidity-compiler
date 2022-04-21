@@ -48,12 +48,11 @@ public final class Solc {
     public boolean build(){
         boolean success;
         try {
-            //./solc /root/Downloads/Cambural21/Solidity/TEST/TEST.sol --bin --abi --overwrite  --base-path /root/Downloads/Cambural21/Solidity/TEST/ --include-path /root/Downloads/Cambural21/Solidity/TEST/interfaces -o /root/Downloads/Cambural21/Solidity/TEST/
             final File solc = Installer.getSolc();
             if(!buildDir.exists()) buildDir.mkdirs();
             List<String> commandParts = new ArrayList<>();
-            commandParts.add(solc.getAbsolutePath());// solc
-            commandParts.add(sourceFile.getAbsolutePath());// /path/File.sol
+            commandParts.add(solc.getAbsolutePath());
+            commandParts.add(sourceFile.getAbsolutePath());
             if(ABI && BIN) commandParts.add(Option.OVERWRITE.getCmd());
             if(OPT) commandParts.add(Option.OPTIMIZE.getCmd());
             if(BIN) commandParts.add(Option.BIN.getCmd());

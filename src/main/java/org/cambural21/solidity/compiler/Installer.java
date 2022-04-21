@@ -7,13 +7,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class Installer {
 
     public enum OS {
-        LINUX("resources/linux"), WINDOWS("resources/windows"), macOS("resources/macOS");
+        LINUX("linux"), WINDOWS("windows"), macOS("macOS");
         private final String folder;
         OS(String folder){
             this.folder = folder;
@@ -102,15 +103,32 @@ public class Installer {
         zipIn.close();
     }
 
-    //fixme
+    private String buildResourceName(String name) {
+        name = name == null || name.isEmpty()?"":name;
+        return  os.getFolder() + File.separator + name;
+    }
+
     private InputStream getResourceAsStream(String name) throws IOException {
+        String resourceName = buildResourceName(name);
+        InputStream out = null;
 
-        Path resourcesPath = FileSystems.getDefault().getPath(System.getProperty("user.dir"), "/src/main/", "/"+os.getFolder()+"/" + name);
-        return new ByteArrayInputStream(Files.readAllBytes(resourcesPath));
+        try{
+            InputStream is = Installer.class.getClassLoader().getResourceAsStream(resourceName);
+            if(is != null) out = is;
+        }catch (Exception e){
+            e.printStackTrace();
+            out = null;
+        }
 
-        //return Installer.class.getClassLoader().getResourceAsStream("resources/"+os.getFolder()+"/" + name);
-        //return getClass().getClassLoader().getResourceAsStream("/"+os.getFolder()+"/" + name);
-        //return getClass().getClassLoader().getResourceAsStream(os.getFolder()+"/" + name);
+        if(out == null){
+            String userDir = System.getProperty("user.dir");
+            File dir = new File(new StringJoiner(File.separator).add(userDir).add("resources").toString());
+            if(!dir.exists()) dir = new File (userDir, new StringJoiner(File.separator).add("src").add("main").add("resources").toString());
+            File file = new File(dir, resourceName);
+            out = new ByteArrayInputStream(Files.readAllBytes(file.toPath()));
+        }
+
+        return out;
     }
 
     private void download(String url, File destiny) throws IOException {
@@ -196,7 +214,7 @@ public class Installer {
     }
 
     private boolean installWeb3j(){
-        if(!downloadWeb3j()) throw new NullPointerException("web3j is null");
+        if(!downloadWeb3j()) throw new NullPointerException("web3j download fail");
         File web3j = getWeb3j();
         return web3j.exists();
     }

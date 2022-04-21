@@ -49,7 +49,7 @@ public class Web3jGen {
 
             File tree = buildDir;
             {
-                for (String path:PKG.replace(".", "//").split("//")) tree = new File(tree, path);
+                tree = GethCompiler.parsePackageName(tree, PKG);
                 tree = new File(tree, BIN.getName().replace("bin", "java"));
             }
 

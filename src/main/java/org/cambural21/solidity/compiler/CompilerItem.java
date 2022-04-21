@@ -18,8 +18,8 @@ public class CompilerItem {
     public CompilerItem(File source, File build, String packageName){
 
         if(source == null) throw new NullPointerException("source is NULL");
-        else if(build == null) throw new NullPointerException("source is NULL");
-        else if(packageName == null || packageName.isEmpty()) throw new NullPointerException("source is NULL");
+        else if(build == null) throw new NullPointerException("destiny is NULL");
+        else if(packageName == null || packageName.isEmpty()) throw new NullPointerException("PackageName is NULL");
         this.packageName = packageName;
         this.source = source;
         this.build = build;
